@@ -21,8 +21,8 @@ import torch
 from transformers import BertModel
 import gluonnlp as nlp
 
-from .utils import download as _download
-from .utils import tokenizer
+from kobert.utils import download as _download
+from kobert.utils import tokenizer
 
 pytorch_kobert = {
     'url':
@@ -57,6 +57,13 @@ def get_kobert_model(model_path, vocab_file, ctx="cpu"):
     device = torch.device(ctx)
     bertmodel.to(device)
     bertmodel.eval()
-    vocab_b_obj = nlp.vocab.BERTVocab.from_sentencepiece(vocab_file,
-                                                         padding_token='[PAD]')
+    vocab_b_obj = nlp.vocab.BERTVocab.from_sentencepiece(vocab_file, padding_token='[PAD]')
     return bertmodel, vocab_b_obj
+
+
+if __name__ == '__main__':
+    x = torch.rand(5, 3)
+    print(x)
+
+    model, vocab = get_pytorch_kobert_model()
+    model.eval()
